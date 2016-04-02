@@ -1,4 +1,4 @@
-environment:environment:
+environment:
   github_release_token:
     secure: en/UnoFHA3RsSAHM5c6zb3RAMa4V01lC3pYG1YrHSeOPFu78SUA/0lOjNe3pp8RG
   matrix:
