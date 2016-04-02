@@ -44,7 +44,7 @@ os: Visual Studio 2015
 
 deploy:
   - provider: GitHub
-    release: $(APPVEYOR_REPO_COMMIT_MESSAGE)-win32-$(PLATFORM)
+    release: v$(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_version)-win32-$(PLATFORM)
     artifact: build/Release/xmljs.node
     description: 'Release description'
     auth_token: $(github_release_token)
@@ -55,4 +55,5 @@ deploy:
       appveyor_repo_tag: true
 
 install:
+  - npm install -g node-gyp
   - npm install --build-from-source
