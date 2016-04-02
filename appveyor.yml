@@ -57,5 +57,4 @@ deploy:
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm i -g npm
-  - rd /S /Q "node_modules"
   - npm install --build-from-source
