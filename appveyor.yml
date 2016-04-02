@@ -4,7 +4,7 @@ environment:
     secure: en/UnoFHA3RsSAHM5c6zb3RAMa4V01lC3pYG1YrHSeOPFu78SUA/0lOjNe3pp8RG
   matrix:
     - nodejs_version: 0.10.40
-      platform: WIN32
+      platform: Win32
       msvs_toolset: 12
     - nodejs_version: 0.10.40
       platform: x64
@@ -59,6 +59,12 @@ deploy:
       appveyor_repo_tag: true
 
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - npm i -g npm
-  - npm install --build-from-source
+  - ps: Install-Product node ($env:nodejs_version + $env:iojs_version) $env:platform
+  - set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
+  - npm install -g npm
+
+
+build_script:
+  - if %platform% == x64 ( CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" amd64 )
+  - if %platform% == x86 ( CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" amd64_x86 )
+  - npm install --build-from-source --msvs_version=2013
