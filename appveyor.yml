@@ -1,0 +1,58 @@
+environment:environment:
+  github_release_token:
+    secure: en/UnoFHA3RsSAHM5c6zb3RAMa4V01lC3pYG1YrHSeOPFu78SUA/0lOjNe3pp8RG
+  matrix:
+    - nodejs_version: 0.10.40
+      platform: x86
+      msvs_toolset: 12
+    - nodejs_version: 0.10.40
+      platform: x64
+      msvs_toolset: 12
+    - nodejs_version: 0.12.7
+      platform: x86
+      msvs_toolset: 12
+    - nodejs_version: 0.12.7
+      platform: x64
+      msvs_toolset: 12
+    - nodejs_version: 4.0.0
+      platform: x64
+      msvs_toolset: 12
+    - nodejs_version: 4.0.0
+      platform: x86
+      msvs_toolset: 12
+    - nodejs_version: 5.0.0
+      platform: x64
+      msvs_toolset: 12
+    - nodejs_version: 5.0.0
+      platform: x86
+      msvs_toolset: 12
+    # custom visual studio 2015 builds
+    - nodejs_version: 0.10.40
+      platform: x86
+      msvs_toolset: 14
+    - nodejs_version: 0.10.40
+      platform: x64
+      msvs_toolset: 14
+    - nodejs_version: 0.12.7
+      platform: x86
+      msvs_toolset: 14
+    - nodejs_version: 0.12.7
+      platform: x64
+      msvs_toolset: 14
+
+os: Visual Studio 2015
+
+deploy:
+  - provider: GitHub
+    release: $(APPVEYOR_REPO_COMMIT_MESSAGE)-win32-$(PLATFORM)
+    artifact: build/Release/xmljs.node
+    description: 'Release description'
+    auth_token: $(github_release_token)
+    draft: false
+    prerelease: false
+    on:
+      branch: master
+      appveyor_repo_tag: true
+
+install:
+  - npm install --build-from-source
