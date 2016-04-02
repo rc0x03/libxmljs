@@ -42,6 +42,9 @@ environment:
 
 os: Visual Studio 2015
 
+build:
+  verbosity: detailed
+
 deploy:
   - provider: GitHub
     release: v$(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_version)-win32-$(PLATFORM)
