@@ -1,0 +1,57 @@
+environment:
+  github_release_token:
+    secure: en/UnoFHA3RsSAHM5c6zb3RAMa4V01lC3pYG1YrHSeOPFu78SUA/0lOjNe3pp8RG
+  matrix:
+    - nodejs_version: 0.10.40
+      nodejs_abi: 11
+      platform: x86
+    - nodejs_version: 0.10.40
+      nodejs_abi: 11
+      platform: x64
+    - nodejs_version: 0.12.7
+      nodejs_abi: 14
+      platform: x86
+    - nodejs_version: 0.12.7
+      nodejs_abi: 14
+      platform: x64
+    - nodejs_version: 4.0.0
+      nodejs_abi: 46
+      platform: x64
+    - nodejs_version: 4.0.0
+      nodejs_abi: 46
+      platform: x86
+    - nodejs_version: 5.0.0
+      nodejs_abi: 47
+      platform: x64
+    - nodejs_version: 5.0.0
+      nodejs_abi: 47
+      platform: x86
+
+image: Visual Studio 2015
+
+build:
+  verbosity: detailed
+
+artifacts:
+  - path: build/Release/xmljs.node
+    name: libxml_binary
+
+deploy:
+  - provider: GitHub
+    release: $(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_abi)-win32-$(PLATFORM)
+    artifact: libxml_binary
+    description: 'New release'
+    tag: release
+    auth_token: $(github_release_token)
+    draft: false
+    prerelease: false
+    on:
+      branch: issue-395
+
+install:
+  - ps: Install-Product node ($env:nodejs_version + $env:iojs_version) $env:platform
+  - npm install -g npm
+
+
+build_script:
+  - npm install --build-from-source --msvs_version=2013
