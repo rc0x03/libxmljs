@@ -3,56 +3,43 @@ environment:
     secure: en/UnoFHA3RsSAHM5c6zb3RAMa4V01lC3pYG1YrHSeOPFu78SUA/0lOjNe3pp8RG
   matrix:
     - nodejs_version: 0.10.40
+      nodejs_abi: 11
       platform: x86
-      msvs_toolset: 12
     - nodejs_version: 0.10.40
+      nodejs_abi: 11
       platform: x64
-      msvs_toolset: 12
     - nodejs_version: 0.12.7
+      nodejs_abi: 14
       platform: x86
-      msvs_toolset: 12
     - nodejs_version: 0.12.7
+      nodejs_abi: 14
       platform: x64
-      msvs_toolset: 12
     - nodejs_version: 4.0.0
+      nodejs_abi: 46
       platform: x64
-      msvs_toolset: 12
     - nodejs_version: 4.0.0
+      nodejs_abi: 46
       platform: x86
-      msvs_toolset: 12
     - nodejs_version: 5.0.0
+      nodejs_abi: 47
       platform: x64
-      msvs_toolset: 12
     - nodejs_version: 5.0.0
+      nodejs_abi: 47
       platform: x86
-      msvs_toolset: 12
-    # custom visual studio 2015 builds
-    - nodejs_version: 0.10.40
-      platform: x86
-      msvs_toolset: 14
-    - nodejs_version: 0.10.40
-      platform: x64
-      msvs_toolset: 14
-    - nodejs_version: 0.12.7
-      platform: x86
-      msvs_toolset: 14
-    - nodejs_version: 0.12.7
-      platform: x64
-      msvs_toolset: 14
 
-image: Visual Studio 2013
+image: Visual Studio 2015
 
 build:
   verbosity: detailed
 
 artifacts:
-  - path: build/Release/*.node
-    name: binary
+  - path: build/Release/xmljs.node
+    name: libxml_binary
 
 deploy:
   - provider: GitHub
-    release: $(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_version)-win32-$(PLATFORM)
-    artifact: binary
+    release: $(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_abi)-win32-$(PLATFORM)
+    artifact: libxml_binary
     description: 'Release description'
     auth_token: $(github_release_token)
     draft: false
