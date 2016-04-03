@@ -45,10 +45,14 @@ image: Visual Studio 2013
 build:
   verbosity: detailed
 
+artifacts:
+  - path: build/Release/*.node
+    name: binary
+
 deploy:
   - provider: GitHub
     release: $(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_version)-win32-$(PLATFORM)
-    artifact: build/Release/*.node
+    artifact: binary
     description: 'Release description'
     auth_token: $(github_release_token)
     draft: false
