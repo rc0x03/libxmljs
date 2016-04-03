@@ -47,8 +47,8 @@ build:
 
 deploy:
   - provider: GitHub
-    release: v$(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_version)-win32-$(PLATFORM)
-    artifact: ./build/Release/xmljs.node
+    release: $(APPVEYOR_REPO_COMMIT_MESSAGE)-$(nodejs_version)-win32-$(PLATFORM)
+    artifact: build/Release/*.node
     description: 'Release description'
     auth_token: $(github_release_token)
     draft: false
