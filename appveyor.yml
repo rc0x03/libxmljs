@@ -52,6 +52,8 @@ install:
   - ps: Install-Product node ($env:nodejs_version + $env:iojs_version) $env:platform
   - npm install -g npm
 
-
 build_script:
   - npm install --build-from-source --msvs_version=2013
+  
+test_script:
+- cmd: npm test
