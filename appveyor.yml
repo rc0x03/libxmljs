@@ -54,8 +54,7 @@ deploy:
     draft: false
     prerelease: false
     on:
-      branch: master
-      appveyor_repo_tag: true
+      branch: issue-395
 
 install:
   - ps: Install-Product node ($env:nodejs_version + $env:iojs_version) $env:platform
