@@ -157,7 +157,9 @@
 #define HAVE_RAND 1
 
 /* Define to 1 if you have the `rand_r' function. */
+#ifndef _WIN32
 #define HAVE_RAND_R 1
+#endif
 
 /* Define to 1 if you have the <resolv.h> header file. */
 #define HAVE_RESOLV_H 1
@@ -174,6 +176,8 @@
 /* Define to 1 if you have the `snprintf' function. */
 #ifndef _WIN32
 #define HAVE_SNPRINTF 1
+#else
+#define snprintf _snprintf
 #endif
 
 /* Define to 1 if you have the `sprintf' function. */
