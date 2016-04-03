@@ -172,7 +172,9 @@
 #define HAVE_SIGNAL_H 1
 
 /* Define to 1 if you have the `snprintf' function. */
+#ifndef _WIN32
 #define HAVE_SNPRINTF 1
+#endif
 
 /* Define to 1 if you have the `sprintf' function. */
 #define HAVE_SPRINTF 1
