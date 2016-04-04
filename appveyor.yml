@@ -52,7 +52,7 @@ build_script:
   - npm install --build-from-source --msvs_version=2013
 
 after_build:
-  - ps: Rename-Item build/Release/xmljs.node $env:nodejs_abi + "-win32-" + $env:platform + ".node"
+  - ps: Rename-Item build/Release/xmljs.node ($env:nodejs_abi + "-win32-" + $env:platform + ".node")
 
 test_script:
 - cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
