@@ -1,6 +1,7 @@
 # only build when a commit is tagged
 skip_non_tags: true
 
+
 environment:
   github_release_token:
     secure: en/UnoFHA3RsSAHM5c6zb3RAMa4V01lC3pYG1YrHSeOPFu78SUA/0lOjNe3pp8RG
@@ -54,6 +55,6 @@ install:
 
 build_script:
   - npm install --build-from-source --msvs_version=2013
-  
+
 test_script:
 - cmd: npm test
