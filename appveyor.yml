@@ -36,7 +36,7 @@ image: Visual Studio 2015
 artifacts:
   - path: build/Release/xmljs.node
     name: libxml_binary
-    
+
 
 deploy:
   - provider: GitHub
@@ -49,9 +49,10 @@ deploy:
     prerelease: false
     on:
       branch: issue-395
+      appveyor_repo_tag: true
 
 install:
-  - ps: Install-Product node ($env:nodejs_version + $env:iojs_version) $env:platform
+  - ps: Install-Product node $env:nodejs_version $env:platform
   - npm install -g npm
 
 build_script:
