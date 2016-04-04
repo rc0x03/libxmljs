@@ -30,7 +30,7 @@ environment:
 image: Visual Studio 2015
 
 artifacts:
-  - path: build/Release/$(nodejs_abi)-win32-$(PLATFORM).node
+  - path: $(nodejs_abi)-win32-$(PLATFORM).node
     name: libxml_binary
 
 deploy:
@@ -52,7 +52,7 @@ build_script:
   - npm install --build-from-source --msvs_version=2013
 
 after_build:
-  - ps: Rename-Item build/Release/xmljs.node ($env:nodejs_abi + "-win32-" + $env:platform + ".node")
+  - ps: Copy-Item build/Release/xmljs.node ($env:nodejs_abi + "-win32-" + $env:platform + ".node")
 
 test_script:
 - cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
