@@ -57,4 +57,4 @@ build_script:
   - npm install --build-from-source --msvs_version=2013
 
 test_script:
-- cmd: npm test
+- cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
