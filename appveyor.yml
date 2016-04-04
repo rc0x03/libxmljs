@@ -34,31 +34,29 @@ environment:
 image: Visual Studio 2015
 
 artifacts:
-  - path: build/Release/xmljs.node
+  - path: build/Release/$(nodejs_abi)-win32-$(PLATFORM).node
     name: libxml_binary
-
 
 deploy:
   - provider: GitHub
-    release: $(nodejs_abi)-win32-$(PLATFORM)
+    release: $(APPVEYOR_REPO_TAG_NAME)
     artifact: libxml_binary
     description: 'Binary release'
-    tag: $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(github_release_token)
     draft: false
     prerelease: false
     on:
       appveyor_repo_tag: true
 
-
-
-
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - npm install -g npm
 
 build_script:
-  - npm install --build-from-source --msvs_version=2013
+  - npm install --build-from-source
+
+after_build:
+  - rename build/Release/xmljs.node $(nodejs_abi)-win32-$(PLATFORM).node
 
 test_script:
 - cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
