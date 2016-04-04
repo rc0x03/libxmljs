@@ -36,6 +36,7 @@ image: Visual Studio 2015
 artifacts:
   - path: build/Release/xmljs.node
     name: libxml_binary
+    
 
 deploy:
   - provider: GitHub
