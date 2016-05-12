@@ -444,13 +444,13 @@ NAN_METHOD(XmlDocument::FromXml)
     if (!node::Buffer::HasInstance(info[0])) {
       // Parse a string
       v8::String::Utf8Value str(info[0]->ToString());
-      doc = xmlReadMemory(*str, str.length(), baseUrl, "UTF-8", opts);
+      doc = xmlReadMemory(*str, str.length(), NULL, "UTF-8", opts);
     }
     else {
       // Parse a buffer
       v8::Local<v8::Object> buf = info[0]->ToObject();
       doc = xmlReadMemory(node::Buffer::Data(buf), node::Buffer::Length(buf),
-                          baseUrl, "UTF-8", opts);
+                          NULL, "UTF-8", opts);
     }
 
     xmlSetStructuredErrorFunc(NULL, NULL);
