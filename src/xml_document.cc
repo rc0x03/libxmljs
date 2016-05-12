@@ -413,19 +413,42 @@ NAN_METHOD(XmlDocument::FromXml)
     xmlSetStructuredErrorFunc(reinterpret_cast<void *>(&errors),
             XmlSyntaxError::PushToArray);
 
-    xmlParserOption opts = getParserOptions(info[1]->ToObject());
+    v8::Local<v8::Object> options = info[1]->ToObject();
+    v8::Local<v8::Value>  baseUrlOpt  = options->Get(
+        Nan::New<v8::String>("baseUrl").ToLocalChecked());
+    v8::Local<v8::Value>  encodingOpt = options->Get(
+        Nan::New<v8::String>("encoding").ToLocalChecked());
+    v8::Local<v8::Value> excludeImpliedElementsOpt = options->Get(
+        Nan::New<v8::String>("excludeImpliedElements").ToLocalChecked());
+
+    // the base URL that will be used for this document
+    v8::String::Utf8Value baseUrl_(baseUrlOpt->ToString());
+    const char * baseUrl = *baseUrl_;
+    if (!baseUrlOpt->IsString()) {
+        baseUrl = NULL;
+    }
+
+    // the encoding to be used for this document
+    // (leave NULL for libxml to autodetect)
+    v8::String::Utf8Value encoding_(encodingOpt->ToString());
+    const char * encoding = *encoding_;
+    if (!encodingOpt->IsString()) {
+        encoding = NULL;
+    }
+
+    int opts = (int) getParserOptions(options);
 
     xmlDocPtr doc;
     if (!node::Buffer::HasInstance(info[0])) {
       // Parse a string
       v8::String::Utf8Value str(info[0]->ToString());
-      doc = xmlReadMemory(*str, str.length(), NULL, "UTF-8", opts);
+      doc = xmlReadMemory(*str, str.length(), baseUrl, "UTF-8", opts);
     }
     else {
       // Parse a buffer
       v8::Local<v8::Object> buf = info[0]->ToObject();
       doc = xmlReadMemory(node::Buffer::Data(buf), node::Buffer::Length(buf),
-                          NULL, NULL, opts);
+                          baseUrl, encoding, opts);
     }
 
     xmlSetStructuredErrorFunc(NULL, NULL);
