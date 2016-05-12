@@ -417,12 +417,12 @@ NAN_METHOD(XmlDocument::FromXml)
             XmlSyntaxError::PushToArray);
 
     //v8::Local<v8::Object> options = info[1]->ToObject();
-    int opts = 0;
+    xmlParserOption opts = getParserOptions(info[1]->ToObject());
     xmlDocPtr doc;
     if (!node::Buffer::HasInstance(info[0])) {
       // Parse a string
       v8::String::Utf8Value str(info[0]->ToString());
-      doc = xmlReadMemory(*str, str.length(), NULL, NULL, opts);
+      doc = xmlReadMemory(*str, str.length(), NULL, "UTF-8", opts);
     }
     else {
       // Parse a buffer
