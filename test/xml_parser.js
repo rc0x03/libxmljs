@@ -58,31 +58,6 @@ module.exports.recoverable_parse = function (assert) {
     assert.done();
 };
 
-module.exports.baseurl_xml = function (assert) {
-    var str = '<!DOCTYPE example SYSTEM "baseurl.dtd">\n' +
-      '<example msg="&happy;"/>\n';
-
-    // First verify it fails when we don't give baseUrl
-    var doc = libxml.Document.fromXml(str, {
-        dtdvalid: true,
-        nonet: true
-    });
-
-    assert.ok(doc.errors.length > 0);
-
-    // Now it should work
-    var doc = libxml.Document.fromXml(str, {
-        dtdvalid: true,
-        nonet: true,
-        baseUrl: __dirname + '/fixtures/example.xml'
-    });
-
-    assert.ok(!doc.errors || doc.errors.length == 0);
-
-    assert.done();
-};
-
-
 
 
 module.exports.fatal_error = function (assert) {

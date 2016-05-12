@@ -404,6 +404,9 @@ NAN_METHOD(XmlDocument::FromHtml)
     return info.GetReturnValue().Set(doc_handle);
 }
 
+// FIXME: this method is almost identical to FromHtml above.
+// The two should be refactored to use a common function for most
+// of the work
 NAN_METHOD(XmlDocument::FromXml)
 {
     Nan::HandleScope scope;
