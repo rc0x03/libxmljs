@@ -416,6 +416,7 @@ NAN_METHOD(XmlDocument::FromXml)
     xmlSetStructuredErrorFunc(reinterpret_cast<void *>(&errors),
             XmlSyntaxError::PushToArray);
 
+    v8::Local<v8::Object> options = info[1]->ToObject();
     int opts = (int) getParserOptions(options);
     xmlDocPtr doc;
     if (!node::Buffer::HasInstance(info[0])) {
