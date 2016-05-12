@@ -157,9 +157,7 @@
 #define HAVE_RAND 1
 
 /* Define to 1 if you have the `rand_r' function. */
-#ifndef WIN32
-#define HAVE_RAND_R 1
-#endif
+/* #undef HAVE_RAND_R */
 
 /* Define to 1 if you have the <resolv.h> header file. */
 #define HAVE_RESOLV_H 1
@@ -251,9 +249,7 @@
 #define HAVE_TIME_H 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
-#ifndef WIN32
-#define HAVE_UNISTD_H 1
-#endif
+/* #undef HAVE_UNISTD_H */
 
 /* Whether va_copy() is available */
 #define HAVE_VA_COPY 1
@@ -277,7 +273,7 @@
 /* #undef HAVE___VA_COPY */
 
 /* Define as const if the declaration of iconv() needs const. */
-#define ICONV_CONST 
+#define ICONV_CONST
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
@@ -335,3 +331,7 @@
 /* Define to the type of an unsigned integer type of width exactly 32 bits if
    such a type exists and the standard includes do not define it. */
 /* #undef uint32_t */
+
+#if defined(WIN32) && defined(_MSC_VER) && _MSC_VER < 1900
+#define snprintf _snprintf
+#endif
