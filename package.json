@@ -14,7 +14,6 @@
   "description": "libxml bindings for v8 javascript engine",
   "version": "0.17.1",
   "scripts": {
-    "install": "node-pre-gyp install --fallback-to-build --loglevel verbose",
     "test": "node --expose_gc ./node_modules/.bin/nodeunit test"
   },
   "repository": {
