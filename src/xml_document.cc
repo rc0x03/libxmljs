@@ -450,7 +450,7 @@ NAN_METHOD(XmlDocument::FromXml)
       // Parse a buffer
       v8::Local<v8::Object> buf = info[0]->ToObject();
       doc = xmlReadMemory(node::Buffer::Data(buf), node::Buffer::Length(buf),
-                          baseUrl, encoding, opts);
+                          baseUrl, "UTF-8", opts);
     }
 
     xmlSetStructuredErrorFunc(NULL, NULL);
