@@ -84,8 +84,24 @@ environment:
 image: Visual Studio 2015
 
 artifacts:
-  - path: $(artifact_path)
+  - path: build\**\*.tar.gz
     name: libxml_binary
+
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - npm config set msvs_version %msvs_version%
+  - npm config set python C:\Python27\python.exe
+  - npm install -g npm
+  - npm install -g node-pre-gyp
+
+build_script:
+  - npm install --msvs_version=%msvs_version%
+
+test_script:
+- cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
+
+before_deploy:
+  - node-pre-gyp package 2>&1
 
 deploy:
   - provider: GitHub
@@ -97,19 +113,7 @@ deploy:
     on:
       appveyor_repo_tag: true
 
-install:
-  - ps: Install-Product node $env:nodejs_version $env:platform
-  - npm config set msvs_version %msvs_version%
-  - npm config set python C:\Python27\python.exe
-  - npm install -g npm
-
-build_script:
-  - npm install --msvs_version=%msvs_version%
-
-test_script:
-- cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
-
-after_test:
-  - ps: $env:artifact_path = "node-v" + $env:nodejs_abi + "-win32-" + $env:target_arch + ".node"
-  - ps: Copy-Item build/Release/xmljs.node ($env:artifact_path)
-  - ps: echo ("Created artifact " + $env:artifact_path)
+after_deploy:
+  - node-pre-gyp clean
+  - npm install --fallback-to-build=false
+  - cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
