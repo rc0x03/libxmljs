@@ -3,20 +3,20 @@ environment:
     secure: en/UnoFHA3RsSAHM5c6zb3RAMa4V01lC3pYG1YrHSeOPFu78SUA/0lOjNe3pp8RG
   matrix:
 
-      # Node v0.10, MSVS 2013
+    # 0.10
     - nodejs_version: 0.10.40
       nodejs_abi: 11
       platform: x86
       target_arch: ia32
-      msvs_version: 2013
+      msvs_version: 2015
 
     - nodejs_version: 0.10.40
       nodejs_abi: 11
       platform: x64
       target_arch: x64
-      msvs_version: 2013
+      msvs_version: 2015
 
-      # Node v0.12, MSVS 2015
+    # 0.12
     - nodejs_version: 0.12.7
       nodejs_abi: 14
       platform: x86
@@ -29,42 +29,57 @@ environment:
       target_arch: x64
       msvs_version: 2015
 
-      # Node v0.12, MSVS 2013
-    - nodejs_version: 0.12.7
-      nodejs_abi: 14
+    # 4.0
+    - nodejs_version: 4.0.0
+      nodejs_abi: 46
       platform: x86
       target_arch: ia32
-      msvs_version: 2013
-
-    - nodejs_version: 0.12.7
-      nodejs_abi: 14
-      platform: x64
-      target_arch: x64
-      msvs_version: 2013
+      msvs_version: 2015
 
     - nodejs_version: 4.0.0
       nodejs_abi: 46
       platform: x64
       target_arch: x64
-      msvs_version: 2013
+      msvs_version: 2015
+
+    # 5.0
+    - nodejs_version: 5.0.0
+      nodejs_abi: 47
+      platform: x86
+      target_arch: ia32
+      msvs_version: 2015
 
     - nodejs_version: 5.0.0
       nodejs_abi: 47
       platform: x64
       target_arch: x64
-      msvs_version: 2013
+      msvs_version: 2015
+
+    # 6.0
+    - nodejs_version: 6.0.0
+      nodejs_abi: 48
+      platform: x86
+      target_arch: ia32
+      msvs_version: 2015
 
     - nodejs_version: 6.0.0
       nodejs_abi: 48
       platform: x64
       target_arch: x64
-      msvs_version: 2013
+      msvs_version: 2015
+
+    # 7.0
+    - nodejs_version: 7.0.0
+      nodejs_abi: 51
+      platform: x86
+      target_arch: ia32
+      msvs_version: 2015
 
     - nodejs_version: 7.0.0
       nodejs_abi: 51
       platform: x64
       target_arch: x64
-      msvs_version: 2013
+      msvs_version: 2015
 
 image: Visual Studio 2015
 
