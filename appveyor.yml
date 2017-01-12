@@ -80,7 +80,6 @@ deploy:
     draft: false
     prerelease: false
     on:
-      msvs_version: 2013
       appveyor_repo_tag: true
 
 install:
