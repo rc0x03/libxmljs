@@ -21,13 +21,13 @@ artifacts:
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
-  - npm config set msvs_version %msvs_version%
+  - npm config set msvs_version 2015
   - npm config set python C:\Python27\python.exe
   - npm install -g npm
   - npm install -g node-pre-gyp
 
 build_script:
-  - npm install --msvs_version=%msvs_version%
+  - npm install --msvs_version=2015
 
 test_script:
 - cmd: node --expose-gc node_modules/nodeunit/bin/nodeunit test
